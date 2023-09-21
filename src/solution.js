@@ -32,6 +32,7 @@ const getPINs = (observed) => {
   // Convert string argument to array of strings
   // e.g. '123' --> ['1', '2', '3']
   const numbers = observed.split('');
+  const allPossibleNumbers = [];
 
   // 1. Iterate through the numbers and store the index locations of the numRow and its value:
   // a. For each number...
@@ -51,8 +52,10 @@ const getPINs = (observed) => {
     // 5. Find the previous index number in the same numRow
     storeAdjacentNumber(numRowIndex, valueIndex - 1, possibleNumbers);
 
-    console.log(possibleNumbers)
+    allPossibleNumbers.push(possibleNumbers);
   });
+
+  console.log(allPossibleNumbers)
 }
 
-getPINs('123')
+getPINs('11')
