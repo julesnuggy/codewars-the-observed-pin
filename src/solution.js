@@ -16,6 +16,7 @@ const getPINs = (observed) => {
   // a. For each number...
   numbers.forEach(number => {
     let currentRow, currentIndex;
+    const adjacentNums = [];
 
     // b. find the subarray index it belongs to...
     keypad.forEach((numRow, numRowIdx) => {
@@ -26,5 +27,10 @@ const getPINs = (observed) => {
         currentIndex = numRow.indexOf(number);
       }
     });
+
+    // e. Get the number of the previous numRow with the same index
+    keypad[currentRow - 1] // Check prev numRow exists
+      && keypad[currentRow - 1][currentIndex] // Check value is not undefined
+      && adjacentNums.push(keypad[currentRow - 1][currentIndex]);
   });
 }
