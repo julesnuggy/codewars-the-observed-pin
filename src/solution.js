@@ -32,5 +32,10 @@ const getPINs = (observed) => {
     keypad[currentRow - 1] // Check prev numRow exists
       && keypad[currentRow - 1][currentIndex] // Check value is not undefined
       && adjacentNums.push(keypad[currentRow - 1][currentIndex]);
+
+    // f. Get the number of the next numRow with the same index
+    keypad[currentRow + 1] // Check next numRow exists
+      && keypad[currentRow + 1][currentIndex] // Check value is not undefined
+      && adjacentNums.push(keypad[currentRow + 1][currentIndex])
   });
 }
