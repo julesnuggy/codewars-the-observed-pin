@@ -37,5 +37,12 @@ const getPINs = (observed) => {
     keypad[currentRow + 1] // Check next numRow exists
       && keypad[currentRow + 1][currentIndex] // Check value is not undefined
       && adjacentNums.push(keypad[currentRow + 1][currentIndex])
+
+    // 2. Find the next index number in the same numRow
+    keypad[currentRow]
+      && keypad[currentRow][currentIndex + 1]
+      && adjacentNums.push(keypad[currentRow][currentIndex + 1])
   });
 }
+
+getPINs('8')
