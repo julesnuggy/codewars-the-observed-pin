@@ -22,34 +22,33 @@ const findNumberLocation = (number) => {
   return [numRowIndex, valueIndex];
 }
 
+function storeAdjacentNumber(numRowIndex, valueIndex, adjacentNums) {
+  keypad[numRowIndex] // Check prev numRow exists
+    && keypad[numRowIndex][valueIndex] // Check value is not undefined
+    && adjacentNums.push(keypad[numRowIndex][valueIndex]);
+}
+
 const getPINs = (observed) => {
   // Convert string argument to array of strings
   // e.g. '123' --> ['1', '2', '3']
   const numbers = observed.split('');
 
-  // Iterate through numbers to:
-  // 1. Find same-index values of adjacent numRows:
+  // 1. Iterate through the numbers and store the index locations of the numRow and its value:
   // a. For each number...
   numbers.forEach(number => {
     const adjacentNums = [];
     const [numRowIndex, valueIndex] = findNumberLocation(number);
 
-    // e. Get the number of the previous numRow with the same index
-    keypad[numRowIndex - 1] // Check prev numRow exists
-      && keypad[numRowIndex - 1][valueIndex] // Check value is not undefined
-      && adjacentNums.push(keypad[numRowIndex - 1][valueIndex]);
+    // 2. Get the number of the next numRow with the same index
+    storeAdjacentNumber(numRowIndex + 1, valueIndex, adjacentNums);
 
-    // f. Get the number of the next numRow with the same index
-    keypad[numRowIndex + 1] // Check next numRow exists
-      && keypad[numRowIndex + 1][valueIndex] // Check value is not undefined
-      && adjacentNums.push(keypad[numRowIndex + 1][valueIndex])
+    // 3. Get the number of the previous numRow with the same index
+    storeAdjacentNumber(numRowIndex - 1, valueIndex, adjacentNums);
 
-    // 2. Find the next index number in the same numRow
-    keypad[numRowIndex][valueIndex + 1] // Check value is not undefined
-      && adjacentNums.push(keypad[numRowIndex][valueIndex + 1])
+    // 4. Find the next index number in the same numRow
+    storeAdjacentNumber(numRowIndex, valueIndex + 1, adjacentNums);
 
-    // 3. Find the previous index number in the same numRow
-    keypad[numRowIndex][valueIndex - 1] // Check value is not undefined
-      && adjacentNums.push(keypad[numRowIndex][valueIndex - 1])
+    // 5. Find the previous index number in the same numRow
+    storeAdjacentNumber(numRowIndex, valueIndex - 1, adjacentNums);
   });
 }
