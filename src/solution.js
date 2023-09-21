@@ -36,19 +36,23 @@ const getPINs = (observed) => {
   // 1. Iterate through the numbers and store the index locations of the numRow and its value:
   // a. For each number...
   numbers.forEach(number => {
-    const adjacentNums = [];
+    const possibleNumbers = [number];
     const [numRowIndex, valueIndex] = findNumberLocation(number);
 
     // 2. Get the number of the next numRow with the same index
-    storeAdjacentNumber(numRowIndex + 1, valueIndex, adjacentNums);
+    storeAdjacentNumber(numRowIndex + 1, valueIndex, possibleNumbers);
 
     // 3. Get the number of the previous numRow with the same index
-    storeAdjacentNumber(numRowIndex - 1, valueIndex, adjacentNums);
+    storeAdjacentNumber(numRowIndex - 1, valueIndex, possibleNumbers);
 
     // 4. Find the next index number in the same numRow
-    storeAdjacentNumber(numRowIndex, valueIndex + 1, adjacentNums);
+    storeAdjacentNumber(numRowIndex, valueIndex + 1, possibleNumbers);
 
     // 5. Find the previous index number in the same numRow
-    storeAdjacentNumber(numRowIndex, valueIndex - 1, adjacentNums);
+    storeAdjacentNumber(numRowIndex, valueIndex - 1, possibleNumbers);
+
+    console.log(possibleNumbers)
   });
 }
+
+getPINs('123')
