@@ -42,6 +42,11 @@ const getPINs = (observed) => {
     keypad[currentRow]
       && keypad[currentRow][currentIndex + 1]
       && adjacentNums.push(keypad[currentRow][currentIndex + 1])
+
+    // 3. Find the previous index number in the same numRow
+    keypad[currentRow]
+      && keypad[currentRow][currentIndex - 1]
+      && adjacentNums.push(keypad[currentRow][currentIndex - 1])
   });
 }
 
