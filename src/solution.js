@@ -77,7 +77,10 @@ const getPINs = (observed) => {
     allPossibleNumbers.push(possibleNumbers);
   });
 
-  console.log(allPossibleNumbers)
+  loop(allPossibleNumbers, 0);
+
+  return res;
 }
 
-getPINs('11')
+const allPossiblePins = getPINs('123');
+console.log(allPossiblePins);
