@@ -28,6 +28,28 @@ function storeAdjacentNumber(numRowIndex, valueIndex, adjacentNums) {
     && adjacentNums.push(keypad[numRowIndex][valueIndex]);
 }
 
+const res = [];
+const rowsCurrIdx = [];
+
+const loop = (arrayToLoop, currentIndex = 0) => {
+  // Start at index 0 of the original array (allPossibleNumbers) and loop through it
+  arrayToLoop[currentIndex].forEach((_, numRowsIndex) => {
+    // Store the current index location for the current array we're looping through
+    rowsCurrIdx[currentIndex] = numRowsIndex;
+
+    // If there is another array in the next index, then call this function to create
+    // a nested loop (i.e. recursion)
+    if (arrayToLoop[currentIndex + 1]) {
+      loop(arrayToLoop, currentIndex + 1);
+    } else {
+      // Otherwise, if we are at the last numRows array, then allow the loop to iterate through
+      // and get use the stored index locations to get the number combination
+      const value = rowsCurrIdx.map((num, idx) => arrayToLoop[idx][num]).join('');
+      // Store the value in a global variable
+      res.push(value);
+    } });
+};
+
 const getPINs = (observed) => {
   // Convert string argument to array of strings
   // e.g. '123' --> ['1', '2', '3']
