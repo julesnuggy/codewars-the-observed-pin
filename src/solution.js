@@ -28,10 +28,7 @@ function storeAdjacentNumber(numRowIndex, valueIndex, adjacentNums) {
     && adjacentNums.push(keypad[numRowIndex][valueIndex]);
 }
 
-const res = [];
-const rowsCurrIdx = [];
-
-const loop = (arrayToLoop, currentIndex = 0) => {
+const loop = (res, rowsCurrIdx, arrayToLoop, currentIndex) => {
   // Start at index 0 of the original array (allPossibleNumbers) and loop through it
   arrayToLoop[currentIndex].forEach((_, numRowsIndex) => {
     // Store the current index location for the current array we're looping through
@@ -40,7 +37,7 @@ const loop = (arrayToLoop, currentIndex = 0) => {
     // If there is another array in the next index, then call this function to create
     // a nested loop (i.e. recursion)
     if (arrayToLoop[currentIndex + 1]) {
-      loop(arrayToLoop, currentIndex + 1);
+      loop(res, rowsCurrIdx, arrayToLoop, currentIndex + 1, res);
     } else {
       // Otherwise, if we are at the last numRows array, then allow the loop to iterate through
       // and get use the stored index locations to get the number combination
@@ -77,7 +74,9 @@ const getPINs = (observed) => {
     allPossibleNumbers.push(possibleNumbers);
   });
 
-  loop(allPossibleNumbers, 0);
+  const res = [];
+  const rowsCurrIdx = [];
+  loop(res, rowsCurrIdx, allPossibleNumbers, 0, res);
 
   return res;
 }
