@@ -76,7 +76,10 @@ const getPINs = (observed) => {
 
   const res = [];
   const rowsCurrIdx = [];
-  loop(res, rowsCurrIdx, allPossibleNumbers, 0, res);
+
+  // A recursive loop to generate a nested loop which will iterate through each of
+  // the numRows arrays and create all possible PIN combinations
+  loop(res, rowsCurrIdx, allPossibleNumbers, 0);
 
   return res;
 }
